@@ -30,7 +30,25 @@ export const systemConfigKeys = [
   },
   {
     key: "STRIPE_PRICE_ID_NEXOID_CARD",
-    label: "Stripe Price ID - Cartão NexoID",
+    label: "Stripe Price ID - Cartão NexoID (R$ 179,90)",
+    category: "stripe",
+    isSecret: false,
+  },
+  {
+    key: "STRIPE_PRODUCT_ID_NEXOID_CARD",
+    label: "Stripe Product ID - Cartão NexoID",
+    category: "stripe",
+    isSecret: false,
+  },
+  {
+    key: "STRIPE_PRICE_ID_APOIE_NEXOID",
+    label: "Stripe Price ID - Apoiar NexoID (R$ 29,00)",
+    category: "stripe",
+    isSecret: false,
+  },
+  {
+    key: "STRIPE_PRODUCT_ID_APOIE_NEXOID",
+    label: "Stripe Product ID - Apoiar NexoID",
     category: "stripe",
     isSecret: false,
   },

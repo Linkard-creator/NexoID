@@ -68,7 +68,7 @@ export default function MarketingPage() {
                 className="glass-button inline-flex items-center justify-center gap-2 !py-3.5"
               >
                 <CreditCard className="w-5 h-5" />
-                Ver cartão NexoID
+                Adquirir NexoID
               </Link>
             </div>
           </div>
