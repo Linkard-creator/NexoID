@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 1rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-white text-slate-900 antialiased;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.03) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.03) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.02) 0px, transparent 50%);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* ========== GLASSMORPHISM SYSTEM ========== */
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-lg shadow-slate-200/50;
+  }
+
+  .glass-strong {
+    @apply bg-white/85 backdrop-blur-2xl border border-white/50 shadow-xl shadow-slate-200/60;
+  }
+
+  .glass-subtle {
+    @apply bg-white/50 backdrop-blur-md border border-white/30 shadow-md shadow-slate-100/40;
+  }
+
+  .glass-card {
+    @apply glass rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:bg-white/80;
+  }
+
+  .glass-button {
+    @apply glass rounded-full px-6 py-3 font-medium text-slate-800 
+           transition-all duration-200 hover:bg-white/90 hover:scale-[1.02] 
+           active:scale-[0.98] shadow-md;
+  }
+
+  .glass-input {
+    @apply glass rounded-xl px-4 py-3 w-full text-slate-900 placeholder:text-slate-400
+           focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:bg-white/90
+           transition-all duration-200;
+  }
+
+  /* ========== LEGIBILIDADE ========== */
+  .text-primary {
+    @apply text-slate-900 font-semibold tracking-tight;
+  }
+
+  .text-secondary {
+    @apply text-slate-600;
+  }
+
+  .text-muted {
+    @apply text-slate-500;
+  }
+
+  /* ========== BOTÃO FLUTUANTE ========== */
+  .floating-buy-btn {
+    @apply fixed bottom-6 right-6 z-50 
+           bg-slate-900 text-white font-semibold
+           rounded-full px-6 py-4 shadow-2xl shadow-slate-900/30
+           flex items-center gap-3
+           transition-all duration-300
+           hover:scale-105 hover:shadow-slate-900/40
+           active:scale-95;
+  }
+
+  /* ========== HERO & MARKETING ========== */
+  .hero-glass {
+    @apply glass-strong rounded-3xl p-8 md:p-12 relative overflow-hidden;
+  }
+
+  .mascot-container {
+    @apply relative rounded-2xl overflow-hidden;
+  }
+
+  .mascot-container::after {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-t from-white/20 to-transparent pointer-events-none;
+  }
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-slate-50;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400;
+}
