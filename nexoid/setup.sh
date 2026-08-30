@@ -6,22 +6,24 @@ echo "  NexoID — Setup Rápido"
 echo "============================================"
 
 if [ ! -f .env.local ]; then
-  if [ -f .env.local.example ]; then
-    cp .env.local.example .env.local
+  if [ -f .env.developer ]; then
+    cp .env.developer .env.local
+    echo "→ Arquivo .env.local criado a partir do ambiente de desenvolvimento."
+  elif [ -f .env.example ]; then
+    cp .env.example .env.local
     echo "→ Arquivo .env.local criado a partir do exemplo."
-    echo "  Abra .env.local e preencha AUTH_SECRET (obrigatório)."
-    echo "  Gere com: openssl rand -base64 32"
-    echo ""
   else
-    echo "ERRO: .env.local.example não encontrado."
+    echo "ERRO: nenhum arquivo de ambiente encontrado."
     exit 1
   fi
+  echo "  Abra .env.local e ajuste as chaves e URLs locais se necessário."
+  echo ""
 fi
 
 echo "→ Instalando dependências..."
 npm install
 
-echo "→ Gerando Prisma Client e criando banco..."
+echo "→ Gerando Prisma Client e sincronizando schema..."
 npx prisma generate
 npx prisma db push
 

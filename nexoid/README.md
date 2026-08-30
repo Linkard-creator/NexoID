@@ -9,8 +9,8 @@ SaaS estilo Linktree + cartão NFC para networking.
 cd nexoid
 
 # 2. Configure o ambiente
-cp .env.local.example .env.local
-# Abra .env.local e preencha pelo menos:
+cp .env.developer .env.local
+# Abra .env.local e ajuste as chaves locais e o DATABASE_URL conforme o ambiente.
 #   AUTH_SECRET  → gere com: openssl rand -base64 32
 #   AUTH_URL e NEXT_PUBLIC_APP_URL → http://localhost:8080
 
