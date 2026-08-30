@@ -10,7 +10,8 @@ cd nexoid
 
 # 2. Configure o ambiente
 cp .env.developer .env.local
-# Abra .env.local e ajuste as chaves locais e o DATABASE_URL conforme o ambiente.
+# Abra .env.local e ajuste as chaves locais e os valores do Postgres conforme o ambiente.
+#   Para Vercel Postgres, defina: POSTGRES_PRISMA_URL + POSTGRES_URL_NON_POOLING
 #   AUTH_SECRET  → gere com: openssl rand -base64 32
 #   AUTH_URL e NEXT_PUBLIC_APP_URL → http://localhost:8080
 
@@ -27,7 +28,9 @@ Acesse: **http://localhost:8080**
 
 | Variável | Obrigatório | Descrição |
 |----------|-------------|-----------|
-| `DATABASE_URL` | Sim | `file:./dev.db` (já vem) |
+| `POSTGRES_PRISMA_URL` | Sim | URL pool do Vercel Postgres (ou local Postgres) |
+| `POSTGRES_URL_NON_POOLING` | Sim | URL direta do Vercel Postgres para Prisma migrations |
+| `DATABASE_URL` | Sim | Fallback local/compatível com Prisma |
 | `AUTH_SECRET` | **Sim** | Secret forte (openssl rand -base64 32) |
 | `AUTH_URL` | Sim | `http://localhost:8080` |
 | `NEXT_PUBLIC_APP_URL` | Sim | `http://localhost:8080` |
