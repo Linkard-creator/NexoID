@@ -8,11 +8,11 @@ SaaS estilo Linktree + cartão NFC para networking.
 # 1. Entre na pasta
 cd nexoid
 
-# 2. Configure o ambiente
-cp .env.developer .env.local
-# Abra .env.local e ajuste as chaves locais e os valores do Postgres conforme o ambiente.
+# 2. Configure o ambiente local a partir do exemplo
+cp .env.example .env.local
+# Abra .env.local e ajuste as chaves reais do Postgres, Stripe e OAuth.
 #   Para Vercel Postgres, defina: POSTGRES_PRISMA_URL + POSTGRES_URL_NON_POOLING
-#   AUTH_SECRET  → gere com: openssl rand -base64 32
+#   AUTH_SECRET → gere com: openssl rand -base64 32
 #   AUTH_URL e NEXT_PUBLIC_APP_URL → http://localhost:8080
 
 # 3. Instale e rode
@@ -21,6 +21,8 @@ chmod +x setup.sh
 # ou manualmente:
 # npm install && npx prisma db push && npm run dev
 ```
+
+> Nunca commite arquivos .env locais com segredos reais. Mantenha os valores reais apenas em .env.local e use .env.example como template versionado.
 
 Acesse: **http://localhost:8080**
 

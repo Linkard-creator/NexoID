@@ -6,17 +6,14 @@ echo "  NexoID — Setup Rápido"
 echo "============================================"
 
 if [ ! -f .env.local ]; then
-  if [ -f .env.developer ]; then
-    cp .env.developer .env.local
-    echo "→ Arquivo .env.local criado a partir do ambiente de desenvolvimento."
-  elif [ -f .env.example ]; then
+  if [ -f .env.example ]; then
     cp .env.example .env.local
     echo "→ Arquivo .env.local criado a partir do exemplo."
   else
-    echo "ERRO: nenhum arquivo de ambiente encontrado."
+    echo "ERRO: .env.example não encontrado."
     exit 1
   fi
-  echo "  Abra .env.local e ajuste as chaves e URLs locais se necessário."
+  echo "  Abra .env.local e ajuste as chaves locais e os segredos reais antes de iniciar."
   echo ""
 fi
 
