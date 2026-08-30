@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { stripe, getProduct, type ProductKey } from "@/lib/stripe";
 import { auth } from "@/lib/auth";
+import { resolveAppUrl } from "@/lib/app-url";
 
 export async function POST(req: Request) {
   try {
@@ -16,7 +17,7 @@ export async function POST(req: Request) {
     const product = getProduct(productKey);
 
     const session = await auth();
-    const origin = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+    const origin = resolveAppUrl(process.env.NEXT_PUBLIC_APP_URL);
 
     // Prefer env price ID; fallback to create on the fly
     let priceId =

@@ -1,7 +1,9 @@
+import { resolveAppUrl } from "@/lib/app-url";
+
 export const siteConfig = {
   name: "NexoID",
   description: "Sua identidade digital consistente",
-  url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+  url: resolveAppUrl(process.env.NEXT_PUBLIC_APP_URL),
   adminEmail: process.env.ADMIN_EMAIL || "helive.2024@gmail.com",
   links: {
     twitter: "",

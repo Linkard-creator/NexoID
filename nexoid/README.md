@@ -12,7 +12,7 @@ cd nexoid
 cp .env.local.example .env.local
 # Abra .env.local e preencha pelo menos:
 #   AUTH_SECRET  → gere com: openssl rand -base64 32
-#   AUTH_URL e NEXT_PUBLIC_APP_URL → http://localhost:3000
+#   AUTH_URL e NEXT_PUBLIC_APP_URL → http://localhost:8080
 
 # 3. Instale e rode
 chmod +x setup.sh
@@ -21,7 +21,7 @@ chmod +x setup.sh
 # npm install && npx prisma db push && npm run dev
 ```
 
-Acesse: **http://localhost:3000**
+Acesse: **http://localhost:8080**
 
 ## Variáveis de Ambiente (.env.local)
 
@@ -29,8 +29,8 @@ Acesse: **http://localhost:3000**
 |----------|-------------|-----------|
 | `DATABASE_URL` | Sim | `file:./dev.db` (já vem) |
 | `AUTH_SECRET` | **Sim** | Secret forte (openssl rand -base64 32) |
-| `AUTH_URL` | Sim | `http://localhost:3000` |
-| `NEXT_PUBLIC_APP_URL` | Sim | `http://localhost:3000` |
+| `AUTH_URL` | Sim | `http://localhost:8080` |
+| `NEXT_PUBLIC_APP_URL` | Sim | `http://localhost:8080` |
 | `ADMIN_EMAIL` | Sim | `helive.2024@gmail.com` |
 | `AUTH_GOOGLE_ID` | Não (início) | Google OAuth Client ID |
 | `AUTH_GOOGLE_SECRET` | Não (início) | Google OAuth Client Secret |
