@@ -1,7 +1,39 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { ArrowLeft, Download, QrCode, Sparkles } from "lucide-react";
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { resolveAppUrl } from "@/lib/app-url";
+import QRCodeLib from "qrcode";
 
-export default function DashboardQRCodePage() {
+export default async function DashboardQRCodePage() {
+  const session = await auth();
+
+  if (!session?.user) {
+    redirect("/login");
+  }
+
+  if (session.user.isActive === false) {
+    redirect("/login?error=revoked");
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { username: true, uuid: true },
+  });
+
+  const profileTarget = user?.username || user?.uuid || session.user.id;
+  const profileUrl = `${resolveAppUrl(process.env.NEXT_PUBLIC_APP_URL)}/${profileTarget}`;
+  const qrCodeDataUrl = await QRCodeLib.toDataURL(profileUrl, {
+    errorCorrectionLevel: "H",
+    margin: 2,
+    width: 400,
+    color: {
+      dark: "#0f172a",
+      light: "#ffffff",
+    },
+  });
+
   return (
     <div className="min-h-screen text-slate-100">
       <nav className="sticky top-0 z-40 border-b border-violet-400/20 bg-slate-950/70 backdrop-blur-xl">
@@ -11,10 +43,14 @@ export default function DashboardQRCodePage() {
             Voltar
           </Link>
           <span className="font-semibold text-white">QR Code</span>
-          <button type="button" className="glass-button !px-4 !py-2 text-sm">
+          <a
+            href={qrCodeDataUrl}
+            download="nexoid-qr-code.png"
+            className="glass-button !px-4 !py-2 text-sm"
+          >
             <Download className="h-4 w-4" />
             Baixar
-          </button>
+          </a>
         </div>
       </nav>
 
@@ -47,7 +83,7 @@ export default function DashboardQRCodePage() {
             <div className="rounded-[24px] border border-violet-300/20 bg-slate-950/80 p-5">
               <div className="mx-auto flex h-64 w-64 items-center justify-center rounded-2xl bg-white p-4 shadow-[0_0_30px_rgba(168,85,247,0.2)]">
                 <div className="flex h-full w-full items-center justify-center rounded-xl border-2 border-slate-900 bg-white">
-                  <QrCode className="h-32 w-32 text-slate-900" />
+                  <img src={qrCodeDataUrl} alt="QR Code do perfil" className="h-52 w-52 object-contain" />
                 </div>
               </div>
             </div>

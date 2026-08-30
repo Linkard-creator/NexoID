@@ -1,14 +1,20 @@
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, GripVertical, Plus, Sparkles } from "lucide-react";
+import { ArrowLeft, Plus, Sparkles } from "lucide-react";
+import { LinksManager } from "@/components/LinksManager";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-const links = [
-  { title: "Portfolio", url: "https://portfolio.com", accent: "violet" },
-  { title: "Instagram", url: "https://instagram.com", accent: "red" },
-  { title: "LinkedIn", url: "https://linkedin.com", accent: "violet" },
-  { title: "YouTube", url: "https://youtube.com", accent: "red" },
-];
+export default async function DashboardLinksPage() {
+  const session = await auth();
 
-export default function DashboardLinksPage() {
+  if (!session?.user) {
+    redirect("/login");
+  }
+
+  if (session.user.isActive === false) {
+    redirect("/login?error=revoked");
+  }
+
   return (
     <div className="min-h-screen text-slate-100">
       <nav className="sticky top-0 z-40 border-b border-violet-400/20 bg-slate-950/70 backdrop-blur-xl">
@@ -33,53 +39,11 @@ export default function DashboardLinksPage() {
           </div>
           <div className="inline-flex items-center gap-2 rounded-full border border-violet-300/20 bg-violet-500/10 px-3 py-1 text-xs text-violet-100/80">
             <Sparkles className="h-3.5 w-3.5 text-amber-300" />
-            {links.length} ativos
+            Links dinâmicos
           </div>
         </div>
 
-        <div className="space-y-4">
-          {links.map((item, index) => (
-            <div key={item.title} className="glass-strong rounded-2xl p-4 sm:p-5">
-              <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-600 shadow-[0_0_18px_rgba(168,85,247,0.32)]">
-                  <GripVertical className="h-5 w-5 text-white" />
-                </div>
-
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.18em] text-violet-200/55">Link #{index + 1}</p>
-                      <h2 className="mt-1 text-lg font-semibold text-white">{item.title}</h2>
-                    </div>
-                    <button type="button" className="rounded-full border border-violet-300/20 bg-violet-500/10 px-3 py-1.5 text-xs font-medium text-violet-100/80">
-                      Editar
-                    </button>
-                  </div>
-
-                  <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <p className="truncate font-mono text-sm text-violet-100/70">{item.url}</p>
-                    <div className="flex items-center gap-2 text-xs text-violet-100/60">
-                      <span className={`h-2.5 w-2.5 rounded-full ${item.accent === "violet" ? "bg-violet-400" : "bg-red-400"}`} />
-                      {item.accent === "violet" ? "Ativo" : "Destaque"}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="glass rounded-2xl p-5">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-red-500 to-violet-600 shadow-[0_0_14px_rgba(239,68,68,0.24)]">
-              <ExternalLink className="h-5 w-5 text-white" />
-            </div>
-            <div>
-              <p className="font-semibold text-white">Preview do perfil</p>
-              <p className="text-sm text-violet-100/70">Seu público recebe a experiência premium em um clique.</p>
-            </div>
-          </div>
-        </div>
+        <LinksManager />
       </main>
     </div>
   );

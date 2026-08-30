@@ -3,6 +3,8 @@ import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { ProfileSettings } from "@/components/ProfileSettings";
 import { QrCode, Link2, User, LogOut, Shield } from "lucide-react";
 
 export default async function PerfilPage() {
@@ -38,6 +40,7 @@ export default async function PerfilPage() {
             <span className="font-semibold text-slate-900">NexoID</span>
           </Link>
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             {isAdmin && (
               <Link
                 href="/admin/configuracoes"
@@ -124,6 +127,30 @@ export default async function PerfilPage() {
             <p className="text-xs text-slate-400">Em breve: gerenciar links</p>
           </GlassCard>
         </div>
+
+        <GlassCard variant="strong" hover={false} className="!p-5">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-slate-900">Editar perfil</p>
+              <p className="text-xs text-slate-500">Personalize seu nome, username e bio</p>
+            </div>
+          </div>
+          <ProfileSettings
+            initialName={user.name}
+            initialUsername={user.username}
+            initialBio={user.bio}
+          />
+        </GlassCard>
+
+        <GlassCard variant="subtle" hover={false} className="!p-4">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-slate-900">Preferências</p>
+              <p className="text-xs text-slate-500">Tema claro ou escuro</p>
+            </div>
+            <ThemeToggle />
+          </div>
+        </GlassCard>
 
         <GlassCard variant="subtle" hover={false} className="!p-4">
           <p className="text-sm text-slate-600">
