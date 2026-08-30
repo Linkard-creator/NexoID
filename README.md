@@ -28,6 +28,30 @@ Projeto em evolução com foco em estabilidade, experiência real do usuário e 
 
 > Importante: um "check" deve cobrir a fase em andamento, e não apenas um detalhe isolado. Isso mantém a evolução consistente e segura.
 
+## Regra de otimização — Zero retrabalho
+
+**Princípio**: Máxima eficiência de recursos. Cada arquivo é editado uma única vez por sessão.
+
+- Ler arquivo completo antes de editar
+- Validar sintaxe TypeScript/React antes de editar
+- Usar `multi_replace_string_in_file` para múltiplas mudanças no mesmo arquivo
+- Nunca tentar editar o mesmo arquivo duas vezes sem confirmação de sucesso
+- Build obrigatório antes de considerar fase completa
+- Se build falhar, investigar causa raiz e corrigir em uma única passada
+- Evitar incrementalismo: implementar feature completa de uma vez
+- Commits somente após validação total da fase
+
+**Checklist pré-commit**:
+
+- [ ] Build passou sem erros: `npm run build`
+- [ ] Sintaxe TypeScript/JSX validada
+- [ ] Arquivos editados seguem padrões do projeto
+- [ ] Funcionalidade foi testada (navegação, lógica)
+- [ ] Nenhum arquivo quebrado ou incompleto
+- [ ] Checklist atualizado com items [x]
+- [ ] Commit mensagem clara e associada à fase
+
+
 ## Checklist de desenvolvimento
 
 ### Prioridade 0 — Base segura e ambiente
