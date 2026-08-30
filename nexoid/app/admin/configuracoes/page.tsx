@@ -18,7 +18,6 @@ export default async function AdminConfigPage() {
     redirect("/");
   }
 
-  // Group keys by category
   const grouped = systemConfigKeys.reduce((acc, item) => {
     if (!acc[item.category]) acc[item.category] = [];
     acc[item.category].push(item);
@@ -26,19 +25,16 @@ export default async function AdminConfigPage() {
   }, {} as Record<string, typeof systemConfigKeys[number][]>);
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div className="min-h-screen text-slate-100">
+      <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
         <div className="mb-10 space-y-2">
-          <div className="inline-flex items-center gap-2 glass-subtle rounded-full px-3 py-1 text-xs font-medium text-slate-600">
-            <Shield className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-violet-300/20 bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-100 shadow-[0_0_18px_rgba(168,85,247,0.15)]">
+            <Shield className="h-3.5 w-3.5" />
             Acesso Admin
           </div>
-          <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
-            Configurações do Sistema
-          </h1>
-          <p className="text-slate-600">
-            Gerencie chaves de API, domínio e configurações críticas da aplicação.
-            Apenas o email <strong>helive.2024@gmail.com</strong> tem acesso.
+          <h1 className="text-3xl font-black tracking-tight text-white">Configurações do <span className="neon-text">Sistema</span></h1>
+          <p className="text-violet-100/75">
+            Gerencie chaves de API, domínio e configurações críticas da aplicação. Apenas o email <strong className="text-white">helive.2024@gmail.com</strong> tem acesso.
           </p>
         </div>
 
@@ -47,42 +43,25 @@ export default async function AdminConfigPage() {
             const Icon = categoryIcons[category] || Key;
             return (
               <GlassCard key={category} variant="strong" hover={false}>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-white" />
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-600 shadow-[0_0_18px_rgba(168,85,247,0.32)]">
+                    <Icon className="h-5 w-5 text-white" />
                   </div>
-                  <h2 className="text-lg font-semibold text-slate-900 capitalize">
-                    {category === "oauth" ? "OAuth / Google" : category}
-                  </h2>
+                  <h2 className="text-lg font-semibold capitalize text-white">{category === "oauth" ? "OAuth / Google" : category}</h2>
                 </div>
 
                 <div className="space-y-4">
                   {items.map((item) => (
                     <div key={item.key} className="space-y-1.5">
-                      <label className="block text-sm font-medium text-slate-700">
+                      <label className="block text-sm font-medium text-violet-100/80">
                         {item.label}
-                        {item.isSecret && (
-                          <span className="ml-2 text-xs text-amber-600 font-normal">
-                            (secreto)
-                          </span>
-                        )}
+                        {item.isSecret && <span className="ml-2 text-xs font-normal text-red-300">(secreto)</span>}
                       </label>
                       <div className="flex gap-2">
-                        <input
-                          type={item.isSecret ? "password" : "text"}
-                          defaultValue=""
-                          placeholder={`Valor atual de ${item.key}`}
-                          className="glass-input flex-1 font-mono text-sm"
-                          readOnly // Será editável via Server Action
-                        />
-                        <button
-                          type="button"
-                          className="glass-button !px-4 !py-2.5 text-sm shrink-0"
-                        >
-                          Salvar
-                        </button>
+                        <input type={item.isSecret ? "password" : "text"} defaultValue="" placeholder={`Valor atual de ${item.key}`} className="glass-input flex-1 font-mono text-sm" readOnly />
+                        <button type="button" className="glass-button !px-4 !py-2.5 text-sm shrink-0">Salvar</button>
                       </div>
-                      <p className="text-xs text-slate-400 font-mono">{item.key}</p>
+                      <p className="font-mono text-xs text-violet-200/45">{item.key}</p>
                     </div>
                   ))}
                 </div>
@@ -91,12 +70,9 @@ export default async function AdminConfigPage() {
           })}
         </div>
 
-        <div className="mt-10 glass rounded-xl p-5 text-sm text-slate-600">
-          <p className="font-medium text-slate-800 mb-1">Nota de segurança</p>
-          <p>
-            As chaves secretas nunca são exibidas em texto puro após salvas. 
-            Alterações aqui afetam toda a aplicação. Use com cuidado.
-          </p>
+        <div className="mt-10 rounded-xl border border-violet-300/20 bg-slate-950/50 p-5 text-sm text-violet-100/75 shadow-[0_0_24px_rgba(76,29,149,0.14)]">
+          <p className="mb-1 font-medium text-white">Nota de segurança</p>
+          <p>As chaves secretas nunca são exibidas em texto puro após salvas. Alterações aqui afetam toda a aplicação. Use com cuidado.</p>
         </div>
       </div>
     </div>

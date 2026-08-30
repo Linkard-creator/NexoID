@@ -13,6 +13,7 @@ cp .env.example .env.local
 # Abra .env.local e ajuste as chaves reais do Postgres, Stripe e OAuth.
 #   Para Vercel Postgres, defina: POSTGRES_PRISMA_URL + POSTGRES_URL_NON_POOLING
 #   AUTH_SECRET → gere com: openssl rand -base64 32
+#   AUTH_TRUST_HOST=true no Vercel
 #   AUTH_URL e NEXT_PUBLIC_APP_URL → http://localhost:8080
 
 # 3. Instale e rode
@@ -34,6 +35,7 @@ Acesse: **http://localhost:8080**
 | `POSTGRES_URL_NON_POOLING` | Sim | URL direta do Vercel Postgres para Prisma migrations |
 | `DATABASE_URL` | Sim | Fallback local/compatível com Prisma |
 | `AUTH_SECRET` | **Sim** | Secret forte (openssl rand -base64 32) |
+| `AUTH_TRUST_HOST` | Sim no Vercel | `true` para permitir host dinâmico |
 | `AUTH_URL` | Sim | `http://localhost:8080` |
 | `NEXT_PUBLIC_APP_URL` | Sim | `http://localhost:8080` |
 | `ADMIN_EMAIL` | Sim | `helive.2024@gmail.com` |

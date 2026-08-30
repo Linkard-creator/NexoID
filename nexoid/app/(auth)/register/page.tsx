@@ -59,153 +59,72 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12">
+    <div className="flex min-h-screen items-center justify-center px-4 py-12">
       <div className="w-full max-w-md space-y-8">
-        <div className="text-center space-y-2">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 mb-4"
-          >
-            <ArrowLeft className="w-4 h-4" />
+        <div className="space-y-2 text-center">
+          <Link href="/" className="mb-4 inline-flex items-center gap-2 text-sm text-violet-200/80 transition-colors hover:text-white">
+            <ArrowLeft className="h-4 w-4" />
             Voltar
           </Link>
-          <h1 className="text-2xl font-bold text-slate-900">Criar sua NexoID</h1>
-          <p className="text-slate-600 text-sm">
-            Você receberá um UUID e QR Code únicos e imutáveis.
-          </p>
+          <h1 className="text-2xl font-black tracking-tight text-white">Criar sua <span className="neon-text">NexoID</span></h1>
+          <p className="text-sm text-violet-100/70">Você receberá um UUID e QR Code únicos e imutáveis.</p>
         </div>
 
         <div className="glass-strong rounded-2xl p-8 space-y-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                Nome
-              </label>
-              <input
-                type="text"
-                required
-                className="glass-input"
-                placeholder="Seu nome"
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-              />
+              <label className="mb-1.5 block text-sm font-medium text-violet-100/80">Nome</label>
+              <input type="text" required className="glass-input" placeholder="Seu nome" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                Email
-              </label>
-              <input
-                type="email"
-                required
-                className="glass-input"
-                placeholder="seu@email.com"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-              />
+              <label className="mb-1.5 block text-sm font-medium text-violet-100/80">Email</label>
+              <input type="email" required className="glass-input" placeholder="seu@email.com" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                Senha
-              </label>
+              <label className="mb-1.5 block text-sm font-medium text-violet-100/80">Senha</label>
               <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  required
-                  minLength={6}
-                  className="glass-input pr-12"
-                  placeholder="Mínimo 6 caracteres"
-                  value={form.password}
-                  onChange={(e) => setForm({ ...form, password: e.target.value })}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 transition-colors p-1"
-                  aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
-                >
-                  {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
+                <input type={showPassword ? "text" : "password"} required minLength={6} className="glass-input pr-12" placeholder="Mínimo 6 caracteres" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-violet-200/70 transition-colors hover:text-white" aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}>
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                Confirmar senha
-              </label>
+              <label className="mb-1.5 block text-sm font-medium text-violet-100/80">Confirmar senha</label>
               <div className="relative">
-                <input
-                  type={showConfirm ? "text" : "password"}
-                  required
-                  minLength={6}
-                  className="glass-input pr-12"
-                  placeholder="Repita a senha"
-                  value={form.confirmPassword}
-                  onChange={(e) =>
-                    setForm({ ...form, confirmPassword: e.target.value })
-                  }
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirm(!showConfirm)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 transition-colors p-1"
-                  aria-label={showConfirm ? "Ocultar senha" : "Mostrar senha"}
-                >
-                  {showConfirm ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
+                <input type={showConfirm ? "text" : "password"} required minLength={6} className="glass-input pr-12" placeholder="Repita a senha" value={form.confirmPassword} onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })} />
+                <button type="button" onClick={() => setShowConfirm(!showConfirm)} className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-violet-200/70 transition-colors hover:text-white" aria-label={showConfirm ? "Ocultar senha" : "Mostrar senha"}>
+                  {showConfirm ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
               </div>
             </div>
 
-            {error && (
-              <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2">
-                {error}
-              </p>
-            )}
+            {error && <p className="rounded-lg border border-red-400/30 bg-red-500/10 px-3 py-2 text-sm text-red-200">{error}</p>}
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-slate-900 text-white font-semibold rounded-full py-3.5 hover:bg-slate-800 transition-all disabled:opacity-60 flex items-center justify-center gap-2"
-            >
-              {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+            <button type="submit" disabled={loading} className="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-600 py-3.5 font-semibold text-white shadow-[0_0_24px_rgba(168,85,247,0.4)] transition-all hover:scale-[1.01] disabled:opacity-60">
+              {loading && <Loader2 className="h-4 w-4 animate-spin" />}
               Criar conta
             </button>
           </form>
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-slate-200" />
+              <div className="w-full border-t border-violet-300/15" />
             </div>
             <div className="relative flex justify-center text-xs">
-              <span className="bg-white/80 px-3 text-slate-500">ou</span>
+              <span className="bg-slate-950/70 px-3 text-violet-200/60">ou</span>
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={() => signIn("google", { callbackUrl: "/perfil" })}
-            className="w-full glass-button flex items-center justify-center gap-2 text-sm"
-          >
+          <button type="button" onClick={() => signIn("google", { callbackUrl: "/perfil" })} className="glass-button w-full text-sm">
             Continuar com Google
           </button>
 
-          <p className="text-center text-sm text-slate-500">
-            Já tem conta?{" "}
-            <Link
-              href="/login"
-              className="font-medium text-slate-900 hover:underline"
-            >
-              Entrar
-            </Link>
+          <p className="text-center text-sm text-violet-100/70">
+            Já tem conta? <Link href="/login" className="font-medium text-white hover:underline">Entrar</Link>
           </p>
         </div>
       </div>

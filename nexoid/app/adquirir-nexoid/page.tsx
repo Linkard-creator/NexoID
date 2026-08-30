@@ -5,15 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
-import {
-  ArrowLeft,
-  Check,
-  CreditCard,
-  Smartphone,
-  Zap,
-  Loader2,
-  CheckCircle2,
-} from "lucide-react";
+import { ArrowLeft, Check, CreditCard, Smartphone, Zap, Loader2, CheckCircle2 } from "lucide-react";
 import { GlassCard } from "@/components/ui/GlassCard";
 
 function ProductContent() {
@@ -44,89 +36,70 @@ function ProductContent() {
   }
 
   return (
-    <div className="min-h-screen">
-      <nav className="sticky top-0 z-40 glass-subtle border-b border-white/40">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900"
-          >
-            <ArrowLeft className="w-4 h-4" />
+    <div className="min-h-screen text-slate-100">
+      <nav className="sticky top-0 z-40 border-b border-violet-400/20 bg-slate-950/70 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
+          <Link href="/" className="inline-flex items-center gap-2 text-sm text-violet-100/80 transition-colors hover:text-white">
+            <ArrowLeft className="h-4 w-4" />
             Voltar
           </Link>
-          <span className="font-semibold text-slate-900">Adquirir NexoID</span>
+          <span className="font-semibold text-white">Adquirir NexoID</span>
           <div className="w-16" />
         </div>
       </nav>
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+      <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
         {success && (
-          <div className="mb-8 glass rounded-2xl px-5 py-4 flex items-center gap-3 border border-emerald-200 bg-emerald-50/80">
-            <CheckCircle2 className="w-6 h-6 text-emerald-600 shrink-0" />
+          <div className="mb-8 flex items-center gap-3 rounded-2xl border border-emerald-400/30 bg-emerald-500/10 px-5 py-4 shadow-[0_0_24px_rgba(16,185,129,0.12)]">
+            <CheckCircle2 className="h-6 w-6 shrink-0 text-emerald-300" />
             <div>
-              <p className="font-semibold text-emerald-900">Pagamento confirmado!</p>
-              <p className="text-sm text-emerald-700">
-                Em breve você receberá instruções sobre o envio do cartão.
-              </p>
+              <p className="font-semibold text-emerald-200">Pagamento confirmado!</p>
+              <p className="text-sm text-emerald-100/80">Em breve você receberá instruções sobre o envio do cartão.</p>
             </div>
           </div>
         )}
 
         {canceled && (
-          <div className="mb-8 glass rounded-2xl px-5 py-4 text-sm text-slate-600">
-            Pagamento cancelado. Você pode tentar novamente quando quiser.
-          </div>
+          <div className="mb-8 rounded-2xl border border-violet-300/20 bg-slate-950/55 px-5 py-4 text-sm text-violet-100/75">Pagamento cancelado. Você pode tentar novamente quando quiser.</div>
         )}
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid items-start gap-12 lg:grid-cols-2">
           <div className="space-y-6">
             <div className="hero-glass p-3">
-              <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-50">
-                <Image
-                  src="/images/mascot/elevator-card.png"
-                  alt="Cartão NexoID NFC"
-                  fill
-                  className="object-cover"
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 500px"
-                />
+              <div className="relative aspect-square overflow-hidden rounded-2xl bg-slate-900/70">
+                <Image src="/images/mascot/elevator-card.png" alt="Cartão NexoID NFC" fill className="object-cover" priority sizes="(max-width: 1024px) 100vw, 500px" />
               </div>
             </div>
 
             <div className="grid grid-cols-3 gap-3">
               <div className="glass rounded-xl p-3 text-center">
-                <Smartphone className="w-5 h-5 mx-auto mb-1 text-slate-700" />
-                <p className="text-xs text-slate-600">NFC</p>
+                <Smartphone className="mx-auto mb-1 h-5 w-5 text-violet-300" />
+                <p className="text-xs text-violet-100/70">NFC</p>
               </div>
               <div className="glass rounded-xl p-3 text-center">
-                <Zap className="w-5 h-5 mx-auto mb-1 text-slate-700" />
-                <p className="text-xs text-slate-600">Instantâneo</p>
+                <Zap className="mx-auto mb-1 h-5 w-5 text-violet-300" />
+                <p className="text-xs text-violet-100/70">Instantâneo</p>
               </div>
               <div className="glass rounded-xl p-3 text-center">
-                <CreditCard className="w-5 h-5 mx-auto mb-1 text-slate-700" />
-                <p className="text-xs text-slate-600">Premium</p>
+                <CreditCard className="mx-auto mb-1 h-5 w-5 text-violet-300" />
+                <p className="text-xs text-violet-100/70">Premium</p>
               </div>
             </div>
           </div>
 
           <div className="space-y-8">
             <div className="space-y-3">
-              <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
-                Cartão NexoID NFC
-              </h1>
-              <p className="text-slate-600 leading-relaxed">
-                O cartão físico que completa sua identidade digital. Aproxime de
-                qualquer smartphone e compartilhe seu perfil NexoID em segundos.
-              </p>
+              <h1 className="text-3xl font-black tracking-tight text-white sm:text-4xl">Cartão <span className="neon-text">NexoID NFC</span></h1>
+              <p className="leading-relaxed text-violet-100/75">O cartão físico que completa sua identidade digital. Aproxime de qualquer smartphone e compartilhe seu perfil NexoID em segundos.</p>
             </div>
 
             <GlassCard variant="strong" hover={false}>
-              <div className="flex items-baseline gap-2 mb-6">
-                <span className="text-4xl font-bold text-slate-900">R$ 179,90</span>
-                <span className="text-slate-500 text-sm">pagamento único</span>
+              <div className="mb-6 flex items-baseline gap-2">
+                <span className="text-4xl font-black text-white">R$ 179,90</span>
+                <span className="text-sm text-violet-100/60">pagamento único</span>
               </div>
 
-              <ul className="space-y-3 mb-8">
+              <ul className="mb-8 space-y-3">
                 {[
                   "Cartão NFC compatível com iOS e Android",
                   "Vinculado ao seu UUID único e imutável",
@@ -134,47 +107,24 @@ function ProductContent() {
                   "Funciona sem app — só aproximar",
                   "Ideal para eventos e networking presencial",
                 ].map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-start gap-3 text-sm text-slate-700"
-                  >
-                    <Check className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
+                  <li key={item} className="flex items-start gap-3 text-sm text-violet-100/75">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300" />
                     {item}
                   </li>
                 ))}
               </ul>
 
-              {error && (
-                <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2 mb-4">
-                  {error}
-                </p>
-              )}
+              {error && <p className="mb-4 rounded-lg border border-red-400/30 bg-red-500/10 px-3 py-2 text-sm text-red-200">{error}</p>}
 
-              <button
-                type="button"
-                onClick={handleCheckout}
-                disabled={loading}
-                className="w-full bg-slate-900 text-white font-semibold rounded-full py-4 hover:bg-slate-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-slate-900/20 disabled:opacity-60"
-              >
-                {loading ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                  <CreditCard className="w-5 h-5" />
-                )}
+              <button type="button" onClick={handleCheckout} disabled={loading} className="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-600 py-4 font-semibold text-white shadow-[0_0_28px_rgba(168,85,247,0.35)] transition-all hover:scale-[1.01] disabled:opacity-60">
+                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <CreditCard className="h-5 w-5" />}
                 {loading ? "Redirecionando..." : "Comprar agora"}
               </button>
 
-              <p className="text-center text-xs text-slate-500 mt-4">
-                Pagamento seguro via Stripe. Você não precisa ter conta NexoID
-                para comprar.
-              </p>
+              <p className="mt-4 text-center text-xs text-violet-100/60">Pagamento seguro via Stripe. Você não precisa ter conta NexoID para comprar.</p>
             </GlassCard>
 
-            <p className="text-sm text-slate-500 leading-relaxed">
-              <strong className="text-slate-700">Importante:</strong> Você pode
-              usar o NexoID normalmente sem o cartão. O cartão é um upgrade
-              opcional que transforma o networking em algo físico e memorável.
-            </p>
+            <p className="text-sm leading-relaxed text-violet-100/65"><strong className="text-white">Importante:</strong> Você pode usar o NexoID normalmente sem o cartão. O cartão é um upgrade opcional que transforma o networking em algo físico e memorável.</p>
           </div>
         </div>
       </main>
@@ -184,7 +134,7 @@ function ProductContent() {
 
 export default function AdquirirNexoIDPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-slate-500">Carregando...</div>}>
+    <Suspense fallback={<div className="flex min-h-screen items-center justify-center text-violet-100/70">Carregando...</div>}>
       <ProductContent />
     </Suspense>
   );

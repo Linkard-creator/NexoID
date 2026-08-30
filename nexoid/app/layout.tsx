@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${inter.variable} font-sans`}>
+      <body className={`${inter.variable} font-sans bg-[#090711] text-slate-100`}>
         <Providers>
           {children}
           <FloatingBuyButton />

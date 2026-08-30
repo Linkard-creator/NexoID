@@ -4,25 +4,25 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --background: 260 36% 8%;
+    --foreground: 270 40% 96%;
+    --card: 260 30% 11%;
+    --card-foreground: 270 40% 96%;
+    --popover: 260 30% 11%;
+    --popover-foreground: 270 40% 96%;
+    --primary: 274 82% 64%;
+    --primary-foreground: 255 100% 98%;
+    --secondary: 330 90% 60%;
+    --secondary-foreground: 255 100% 98%;
+    --muted: 260 20% 18%;
+    --muted-foreground: 270 25% 78%;
+    --accent: 0 88% 62%;
+    --accent-foreground: 255 100% 98%;
+    --destructive: 0 88% 62%;
+    --destructive-foreground: 255 100% 98%;
+    --border: 280 50% 30%;
+    --input: 280 25% 18%;
+    --ring: 274 82% 64%;
     --radius: 1rem;
   }
 
@@ -30,100 +30,104 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-white text-slate-900 antialiased;
-    background-image: 
-      radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.03) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.03) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.02) 0px, transparent 50%);
-    min-height: 100vh;
+    @apply min-h-screen antialiased;
+    color: hsl(var(--foreground));
+    background:
+      radial-gradient(circle at top left, rgba(168, 85, 247, 0.26), transparent 26%),
+      radial-gradient(circle at top right, rgba(239, 68, 68, 0.18), transparent 24%),
+      radial-gradient(circle at bottom center, rgba(168, 85, 247, 0.14), transparent 30%),
+      linear-gradient(135deg, #070611 0%, #120d1d 36%, #090711 100%);
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 36px 36px;
+    mask-image: radial-gradient(circle at center, black 35%, transparent 100%);
   }
 }
 
 @layer components {
-  /* ========== GLASSMORPHISM SYSTEM ========== */
   .glass {
-    @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-lg shadow-slate-200/50;
+    @apply border border-violet-400/25 bg-slate-950/55 backdrop-blur-2xl shadow-[0_0_30px_rgba(109,40,217,0.20)];
   }
 
   .glass-strong {
-    @apply bg-white/85 backdrop-blur-2xl border border-white/50 shadow-xl shadow-slate-200/60;
+    @apply border border-violet-300/25 bg-slate-950/70 backdrop-blur-2xl shadow-[0_0_36px_rgba(91,33,182,0.35)];
   }
 
   .glass-subtle {
-    @apply bg-white/50 backdrop-blur-md border border-white/30 shadow-md shadow-slate-100/40;
+    @apply border border-violet-300/20 bg-slate-950/40 backdrop-blur-xl shadow-[0_0_24px_rgba(76,29,149,0.18)];
   }
 
   .glass-card {
-    @apply glass rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:bg-white/80;
+    @apply glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_32px_rgba(168,85,247,0.28)];
   }
 
   .glass-button {
-    @apply glass rounded-full px-6 py-3 font-medium text-slate-800 
-           transition-all duration-200 hover:bg-white/90 hover:scale-[1.02] 
-           active:scale-[0.98] shadow-md;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-violet-300/25 bg-gradient-to-r from-violet-500/90 via-violet-600/90 to-fuchsia-600/90 px-6 py-3 font-medium text-white shadow-[0_0_24px_rgba(109,40,217,0.45)] transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_28px_rgba(168,85,247,0.6)] active:scale-[0.98];
   }
 
   .glass-input {
-    @apply glass rounded-xl px-4 py-3 w-full text-slate-900 placeholder:text-slate-400
-           focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:bg-white/90
-           transition-all duration-200;
+    @apply w-full rounded-xl border border-violet-300/20 bg-slate-950/60 px-4 py-3 text-slate-100 placeholder:text-violet-200/55 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-violet-400/30 focus:border-violet-300/40;
   }
 
-  /* ========== LEGIBILIDADE ========== */
   .text-primary {
-    @apply text-slate-900 font-semibold tracking-tight;
+    @apply text-slate-100 font-semibold tracking-tight;
   }
 
   .text-secondary {
-    @apply text-slate-600;
+    @apply text-violet-100/80;
   }
 
   .text-muted {
-    @apply text-slate-500;
+    @apply text-violet-200/70;
   }
 
-  /* ========== BOTÃO FLUTUANTE ========== */
-  .floating-buy-btn {
-    @apply fixed bottom-6 right-6 z-50 
-           bg-slate-900 text-white font-semibold
-           rounded-full px-6 py-4 shadow-2xl shadow-slate-900/30
-           flex items-center gap-3
-           transition-all duration-300
-           hover:scale-105 hover:shadow-slate-900/40
-           active:scale-95;
+  .neon-text {
+    color: #f5d5ff;
+    text-shadow: 0 0 12px rgba(196, 181, 253, 0.9), 0 0 22px rgba(192, 132, 252, 0.75);
   }
 
-  /* ========== HERO & MARKETING ========== */
+  .neon-red {
+    color: #ff8a8a;
+    text-shadow: 0 0 12px rgba(248, 113, 113, 0.8);
+  }
+
   .hero-glass {
     @apply glass-strong rounded-3xl p-8 md:p-12 relative overflow-hidden;
   }
 
   .mascot-container {
-    @apply relative rounded-2xl overflow-hidden;
+    @apply relative overflow-hidden rounded-2xl;
   }
 
   .mascot-container::after {
     content: "";
-    @apply absolute inset-0 bg-gradient-to-t from-white/20 to-transparent pointer-events-none;
+    @apply pointer-events-none absolute inset-0 bg-gradient-to-t from-violet-950/20 to-transparent;
   }
 }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  @apply bg-slate-50;
+  @apply bg-slate-950/60;
 }
+
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 rounded-full;
+  @apply rounded-full bg-violet-500/60;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-slate-400;
+  @apply bg-violet-400/80;
 }
