@@ -4,6 +4,32 @@
 
 @layer base {
   :root {
+    --background: 0 0% 97%;
+    --foreground: 224 71% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+    --primary: 274 82% 64%;
+    --primary-foreground: 255 100% 98%;
+    --secondary: 330 90% 60%;
+    --secondary-foreground: 255 100% 98%;
+    --muted: 220 33% 96%;
+    --muted-foreground: 220 9% 46%;
+    --accent: 0 88% 62%;
+    --accent-foreground: 255 100% 98%;
+    --destructive: 0 88% 62%;
+    --destructive-foreground: 255 100% 98%;
+    --border: 220 13% 88%;
+    --input: 220 13% 94%;
+    --ring: 274 82% 64%;
+    --radius: 1rem;
+    --page-glow-1: rgba(168, 85, 247, 0.18);
+    --page-glow-2: rgba(239, 68, 68, 0.09);
+    --page-grid: rgba(15, 23, 42, 0.04);
+  }
+
+  :root[data-theme="dark"] {
     --background: 260 36% 8%;
     --foreground: 270 40% 96%;
     --card: 260 30% 11%;
@@ -23,7 +49,9 @@
     --border: 280 50% 30%;
     --input: 280 25% 18%;
     --ring: 274 82% 64%;
-    --radius: 1rem;
+    --page-glow-1: rgba(168, 85, 247, 0.26);
+    --page-glow-2: rgba(239, 68, 68, 0.18);
+    --page-grid: rgba(255, 255, 255, 0.02);
   }
 
   * {
@@ -38,10 +66,11 @@
     @apply min-h-screen antialiased;
     color: hsl(var(--foreground));
     background:
-      radial-gradient(circle at top left, rgba(168, 85, 247, 0.26), transparent 26%),
-      radial-gradient(circle at top right, rgba(239, 68, 68, 0.18), transparent 24%),
-      radial-gradient(circle at bottom center, rgba(168, 85, 247, 0.14), transparent 30%),
-      linear-gradient(135deg, #070611 0%, #120d1d 36%, #090711 100%);
+      radial-gradient(circle at top left, var(--page-glow-1), transparent 26%),
+      radial-gradient(circle at top right, var(--page-glow-2), transparent 24%),
+      radial-gradient(circle at bottom center, var(--page-glow-1), transparent 30%),
+      linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--card)) 100%);
+    transition: background 0.2s ease, color 0.2s ease;
   }
 
   body::before {
@@ -49,7 +78,7 @@
     position: fixed;
     inset: 0;
     pointer-events: none;
-    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-image: linear-gradient(var(--page-grid) 1px, transparent 1px), linear-gradient(90deg, var(--page-grid) 1px, transparent 1px);
     background-size: 36px 36px;
     mask-image: radial-gradient(circle at center, black 35%, transparent 100%);
   }
@@ -57,19 +86,28 @@
 
 @layer components {
   .glass {
-    @apply border border-violet-400/25 bg-slate-950/55 backdrop-blur-2xl shadow-[0_0_30px_rgba(109,40,217,0.20)];
+    @apply border backdrop-blur-2xl;
+    background: hsl(var(--card) / 0.82);
+    border-color: hsl(var(--border) / 0.8);
+    box-shadow: 0 0 30px rgba(109, 40, 217, 0.12);
   }
 
   .glass-strong {
-    @apply border border-violet-300/25 bg-slate-950/70 backdrop-blur-2xl shadow-[0_0_36px_rgba(91,33,182,0.35)];
+    @apply border backdrop-blur-2xl;
+    background: hsl(var(--card) / 0.92);
+    border-color: hsl(var(--border) / 0.9);
+    box-shadow: 0 0 36px rgba(91, 33, 182, 0.18);
   }
 
   .glass-subtle {
-    @apply border border-violet-300/20 bg-slate-950/40 backdrop-blur-xl shadow-[0_0_24px_rgba(76,29,149,0.18)];
+    @apply border backdrop-blur-xl;
+    background: hsl(var(--card) / 0.75);
+    border-color: hsl(var(--border) / 0.75);
+    box-shadow: 0 0 24px rgba(76, 29, 149, 0.1);
   }
 
   .glass-card {
-    @apply glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_32px_rgba(168,85,247,0.28)];
+    @apply glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_32px_rgba(168,85,247,0.18)];
   }
 
   .glass-button {
@@ -77,19 +115,27 @@
   }
 
   .glass-input {
-    @apply w-full rounded-xl border border-violet-300/20 bg-slate-950/60 px-4 py-3 text-slate-100 placeholder:text-violet-200/55 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-violet-400/30 focus:border-violet-300/40;
+    @apply w-full rounded-xl border px-4 py-3 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-violet-400/30 focus:border-violet-300/40;
+    background: hsl(var(--input));
+    border-color: hsl(var(--border));
+    color: hsl(var(--foreground));
+  }
+
+  .glass-input::placeholder {
+    color: hsl(var(--muted-foreground) / 0.8);
   }
 
   .text-primary {
-    @apply text-slate-100 font-semibold tracking-tight;
+    @apply font-semibold tracking-tight;
+    color: hsl(var(--foreground));
   }
 
   .text-secondary {
-    @apply text-violet-100/80;
+    color: hsl(var(--foreground) / 0.82);
   }
 
   .text-muted {
-    @apply text-violet-200/70;
+    color: hsl(var(--muted-foreground));
   }
 
   .neon-text {
@@ -121,13 +167,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-slate-950/60;
+  background: hsl(var(--card));
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply rounded-full bg-violet-500/60;
+  @apply rounded-full;
+  background: rgba(168, 85, 247, 0.55);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-violet-400/80;
+  background: rgba(168, 85, 247, 0.8);
 }

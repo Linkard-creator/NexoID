@@ -61,9 +61,9 @@ Projeto em evolução com foco em estabilidade, experiência real do usuário e 
 - [x] Links aparecendo no perfil público
 - [x] QR Code real do perfil gerado para o usuário
 - [x] Download do QR Code do perfil
-- [ ] Melhorar preview de perfil público com UI refinada
-- [ ] Adicionar status visual do perfil (ativo/inativo, público/privado)
-- [ ] Permitir reorder real de links com UX mais fluida
+- [x] Melhorar preview de perfil público com UI refinada
+- [x] Adicionar status visual do perfil (ativo/inativo, público/privado)
+- [x] Permitir reorder real de links com UX mais fluida
 
 ### Prioridade 3 — Personalização e UX
 
@@ -102,9 +102,9 @@ Projeto em evolução com foco em estabilidade, experiência real do usuário e 
 
 ## Status atual
 
-Fase 1 concluída: autenticação, perfil real, links e QR Code.
+Fase 1 e 2 concluídas: autenticação, perfil real, links, QR Code e reorder.
 
-Fase ativa: 2 e 3
+Fase ativa: 3
 
 Itens concluidos neste momento:
 

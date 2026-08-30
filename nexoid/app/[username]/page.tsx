@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { ArrowLeft, Globe, Link2, QrCode } from "lucide-react";
+import { notFound } from "next/navigation";
+import { ArrowLeft, Globe, Link2, QrCode, UserRound } from "lucide-react";
+import { prisma } from "@/lib/prisma";
 
 export default async function PublicProfilePage({
   params,
@@ -7,11 +9,28 @@ export default async function PublicProfilePage({
   params: Promise<{ username: string }>;
 }) {
   const { username } = await params;
-  const profileLinks = [
-    { label: "Portfolio", url: "https://portfolio.com" },
-    { label: "Instagram", url: "https://instagram.com" },
-    { label: "LinkedIn", url: "https://linkedin.com" },
-  ];
+  const normalizedUsername = decodeURIComponent(username).trim().toLowerCase();
+
+  const profile = await prisma.user.findUnique({
+    where: { username: normalizedUsername },
+    include: {
+      links: {
+        where: { isVisible: true },
+        orderBy: { order: "asc" },
+      },
+    },
+  });
+
+  if (!profile || !profile.isActive || !profile.isProfilePublic) {
+    notFound();
+  }
+
+  const profileName = profile.name || normalizedUsername;
+  const profileLinks = profile.links.map((link) => ({
+    id: link.id,
+    label: link.title,
+    url: link.url,
+  }));
 
   return (
     <div className="min-h-screen text-slate-100">
@@ -21,7 +40,7 @@ export default async function PublicProfilePage({
             <ArrowLeft className="h-4 w-4" />
             Voltar
           </Link>
-          <span className="font-semibold text-white">/{username}</span>
+          <span className="font-semibold text-white">/{normalizedUsername}</span>
           <div className="w-16" />
         </div>
       </nav>
@@ -30,29 +49,42 @@ export default async function PublicProfilePage({
         <div className="glass-strong rounded-[28px] p-6 sm:p-8">
           <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:text-left">
             <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 via-purple-600 to-red-500 text-2xl font-black text-white shadow-[0_0_26px_rgba(168,85,247,0.42)]">
-              {username.slice(0, 2).toUpperCase()}
+              {profileName.slice(0, 2).toUpperCase()}
             </div>
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-violet-200/60">Perfil público</p>
-              <h1 className="mt-2 text-3xl font-black tracking-tight text-white">{username}</h1>
-              <p className="mt-2 text-violet-100/75">Networking profissional, presença digital e contatos em um só lugar.</p>
+              <h1 className="mt-2 text-3xl font-black tracking-tight text-white">{profileName}</h1>
+              {profile.bio ? (
+                <p className="mt-2 max-w-xl text-violet-100/75">{profile.bio}</p>
+              ) : (
+                <p className="mt-2 text-violet-100/75">Networking profissional, presença digital e contatos em um só lugar.</p>
+              )}
             </div>
           </div>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="space-y-4">
-            {profileLinks.map((link) => (
-              <Link key={link.label} href={link.url} target="_blank" rel="noreferrer" className="glass flex items-center justify-between rounded-2xl px-4 py-4 transition-all hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(168,85,247,0.2)]">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-600">
-                    <Link2 className="h-5 w-5 text-white" />
+            {profileLinks.length > 0 ? (
+              profileLinks.map((link) => (
+                <Link key={link.id} href={link.url} target="_blank" rel="noreferrer" className="glass flex items-center justify-between rounded-2xl px-4 py-4 transition-all hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(168,85,247,0.2)]">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-600">
+                      <Link2 className="h-5 w-5 text-white" />
+                    </div>
+                    <span className="font-semibold text-white">{link.label}</span>
                   </div>
-                  <span className="font-semibold text-white">{link.label}</span>
+                  <span className="text-xs text-violet-100/60">Abrir</span>
+                </Link>
+              ))
+            ) : (
+              <div className="glass rounded-2xl p-5 text-sm text-violet-100/75">
+                <div className="flex items-center gap-3">
+                  <UserRound className="h-5 w-5 text-violet-300" />
+                  Este perfil ainda não adicionou links públicos.
                 </div>
-                <span className="text-xs text-violet-100/60">Abrir</span>
-              </Link>
-            ))}
+              </div>
+            )}
           </div>
 
           <div className="glass rounded-2xl p-5">

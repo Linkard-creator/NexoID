@@ -14,24 +14,25 @@ enum Role {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String    @unique
-  emailVerified DateTime?
-  image         String?
-  passwordHash  String?
-  uuid          String    @unique // Imutável
-  role          Role      @default(USER)
-  bio           String?
-  username      String?   @unique
-  isActive      Boolean   @default(true)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id              String    @id @default(cuid())
+  name            String?
+  email           String    @unique
+  emailVerified   DateTime?
+  image           String?
+  passwordHash    String?
+  uuid            String    @unique // Imutável
+  role            Role      @default(USER)
+  bio             String?
+  username        String?   @unique
+  isActive        Boolean   @default(true)
+  isProfilePublic Boolean   @default(true) // Controla visibilidade do perfil público
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
-  accounts      Account[]
-  sessions      Session[]
-  links         Link[]
-  orders        Order[]
+  accounts        Account[]
+  sessions        Session[]
+  links           Link[]
+  orders          Order[]
 
   @@map("users")
 }

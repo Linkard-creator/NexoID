@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Zap, Shield, Users, QrCode, CreditCard, Sparkles } from "lucide-react";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function MarketingPage() {
   return (
@@ -16,6 +17,7 @@ export default function MarketingPage() {
           </Link>
 
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <Link href="/login" className="px-4 py-2 text-sm font-medium text-violet-100/80 transition-colors hover:text-white">
               Entrar
             </Link>

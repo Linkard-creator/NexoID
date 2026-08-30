@@ -7,6 +7,7 @@ const profileSchema = z.object({
   name: z.string().trim().min(2).max(80).optional(),
   username: z.string().trim().min(3).max(30).optional(),
   bio: z.string().trim().max(220).optional(),
+  isProfilePublic: z.boolean().optional(),
 });
 
 export async function POST(req: Request) {
@@ -27,7 +28,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const { name, username, bio } = parsed.data;
+    const { name, username, bio, isProfilePublic } = parsed.data;
 
     const existingUser = await prisma.user.findUnique({
       where: { id: session.user.id },
@@ -57,12 +58,14 @@ export async function POST(req: Request) {
         ...(name !== undefined ? { name } : {}),
         ...(username !== undefined ? { username: username.toLowerCase() } : {}),
         ...(bio !== undefined ? { bio } : {}),
+        ...(isProfilePublic !== undefined ? { isProfilePublic } : {}),
       },
       select: {
         id: true,
         name: true,
         username: true,
         bio: true,
+        isProfilePublic: true,
       },
     });
 

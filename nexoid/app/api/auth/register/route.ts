@@ -25,7 +25,15 @@ export async function POST(req: Request) {
     }
 
     const { name, email, password } = parsed.data;
-    const normalizedEmail = email.toLowerCase();
+    const normalizedName = name.trim();
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (!normalizedName || !normalizedEmail) {
+      return NextResponse.json(
+        { error: "Dados inválidos. Verifique nome e email." },
+        { status: 400 }
+      );
+    }
 
     const existing = await prisma.user.findUnique({
       where: { email: normalizedEmail },
@@ -43,7 +51,7 @@ export async function POST(req: Request) {
 
     const user = await prisma.user.create({
       data: {
-        name,
+        name: normalizedName,
         email: normalizedEmail,
         passwordHash,
         uuid: generateUserUUID(),

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Plus, Sparkles } from "lucide-react";
-import { LinksManager } from "@/components/LinksManager";
+import { LinksManagerV2 } from "@/components/LinksManagerV2";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
@@ -43,7 +43,7 @@ export default async function DashboardLinksPage() {
           </div>
         </div>
 
-        <LinksManager />
+        <LinksManagerV2 />
       </main>
     </div>
   );

@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { ProfileSettings } from "@/components/ProfileSettings";
+import { ProfileSettingsV2 } from "@/components/ProfileSettingsV2";
 import { QrCode, Link2, User, LogOut, Shield } from "lucide-react";
 
 export default async function PerfilPage() {
@@ -132,13 +132,14 @@ export default async function PerfilPage() {
           <div className="mb-4 flex items-center justify-between gap-3">
             <div>
               <p className="text-sm font-semibold text-slate-900">Editar perfil</p>
-              <p className="text-xs text-slate-500">Personalize seu nome, username e bio</p>
+              <p className="text-xs text-slate-500">Personalize seu nome, username, bio e visibilidade</p>
             </div>
           </div>
-          <ProfileSettings
+          <ProfileSettingsV2
             initialName={user.name}
             initialUsername={user.username}
             initialBio={user.bio}
+            initialIsProfilePublic={user.isProfilePublic}
           />
         </GlassCard>
 

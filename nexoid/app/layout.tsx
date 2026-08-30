@@ -6,6 +6,26 @@ import { Providers } from "@/components/Providers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
+function ThemeScript() {
+  return (
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `
+          (() => {
+            try {
+              const saved = localStorage.getItem('nexoid-theme');
+              const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+              const theme = saved === 'light' || saved === 'dark' ? saved : (systemDark ? 'dark' : 'light');
+              document.documentElement.setAttribute('data-theme', theme);
+              document.documentElement.style.colorScheme = theme;
+            } catch (e) {}
+          })();
+        `,
+      }}
+    />
+  );
+}
+
 export const metadata: Metadata = {
   title: "NexoID — Sua Identidade Digital Consistente",
   description:
@@ -26,8 +46,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
-      <body className={`${inter.variable} font-sans bg-[#090711] text-slate-100`}>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
+      <body className={`${inter.variable} font-sans`}>
         <Providers>
           {children}
           <FloatingBuyButton />

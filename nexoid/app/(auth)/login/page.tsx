@@ -6,6 +6,8 @@ import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Loader2, Eye, EyeOff } from "lucide-react";
 
+const googleEnabled = process.env.NEXT_PUBLIC_GOOGLE_ENABLED === "true";
+
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -92,9 +94,11 @@ function LoginForm() {
           </div>
         </div>
 
-        <button type="button" onClick={() => signIn("google", { callbackUrl: "/perfil" })} className="glass-button w-full text-sm">
-          Continuar com Google
-        </button>
+        {googleEnabled && (
+          <button type="button" onClick={() => signIn("google", { callbackUrl: "/perfil" })} className="glass-button w-full text-sm">
+            Continuar com Google
+          </button>
+        )}
 
         <p className="text-center text-sm text-violet-100/70">
           Não tem conta? <Link href="/register" className="font-medium text-white hover:underline">Criar conta</Link>
